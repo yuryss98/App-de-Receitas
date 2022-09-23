@@ -14,7 +14,7 @@ function App() {
           type="image/svg+xml"
           data={ rockGlass }
         >
-          Glass
+          Glass dkjdbekwjebje
         </object>
       </div>
     </RecipeProvider>
