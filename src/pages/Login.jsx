@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import Header from '../components/Header';
-=======
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -42,14 +38,8 @@ function Login({ history }) {
 
     push('/meals');
   };
->>>>>>> 95333165029b066123f1b9c8a26a45f3566f4938
 
   return (
-<<<<<<< HEAD
-    <div>
-      <Header />
-    </div>
-=======
     <form onSubmit={ handleSubmit }>
       <label htmlFor="email">
         Email
@@ -84,7 +74,6 @@ function Login({ history }) {
         Entrar
       </button>
     </form>
->>>>>>> 95333165029b066123f1b9c8a26a45f3566f4938
   );
 }
 

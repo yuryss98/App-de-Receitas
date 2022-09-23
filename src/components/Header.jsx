@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-// currentPage === '/' || currentPage.includes('/', 2)
+//
 
 function Header() {
   const history = useHistory();
@@ -26,28 +26,32 @@ function Header() {
   };
 
   return (
-    <header>
-      <h1 data-testid="page-title">
-        {
-          spacedPageTitle.length === 2
-            ? putsBothInCapital()
-            : pageTitle.charAt(0).toUpperCase() + pageTitle.slice(1)
-        }
-      </h1>
-      <img
-        src={ profileIcon }
-        alt="Icone de perfil"
-        data-testid="profile-top-btn"
-      />
-      {
-        !checkForHeaderSearch
+    <div>
+      {!(currentPage === '/' || currentPage.includes('/', 2)) && (
+        <header>
+          <h1 data-testid="page-title">
+            {
+              spacedPageTitle.length === 2
+                ? putsBothInCapital()
+                : pageTitle.charAt(0).toUpperCase() + pageTitle.slice(1)
+            }
+          </h1>
+          <img
+            src={ profileIcon }
+            alt="Icone de perfil"
+            data-testid="profile-top-btn"
+          />
+          {
+            !checkForHeaderSearch
         && (<img
           src={ searchIcon }
           alt="Icone de pesquisa"
           data-testid="search-top-btn"
         />)
-      }
-    </header>
+          }
+        </header>
+      )}
+    </div>
   );
 }
 
