@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 //
 
@@ -9,6 +10,8 @@ function Header() {
   const [search, setSearch] = useState(false);
   //   const [currentPage, setCurrentPage] = useState('');
   const [conditional, setConditional] = useState(false);
+
+  const [inputSearch, setInputSearch] = useState('');
 
   const history = useHistory();
   //   setCurrentPage(history.location.pathname);
@@ -69,7 +72,15 @@ function Header() {
         )
           }
           {search && (
-            <input data-testid="search-input" placeholder="Aqui ficara o input" />
+            <form>
+              <SearchBar inputSearch={ inputSearch } />
+              <input
+                data-testid="search-input"
+                placeholder="digite aqui"
+                value={ inputSearch }
+                onChange={ ({ target }) => setInputSearch(target.value) }
+              />
+            </form>
           )}
         </header>
       )}
