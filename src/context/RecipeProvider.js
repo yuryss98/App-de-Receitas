@@ -4,11 +4,10 @@ import RecipeContext from './RecipeContext';
 
 function RecipeProvider({ children }) {
   // const contextValue = {
-
-  //   };
+  // };
 
   return (
-    <RecipeContext.Provider value={ contextValue }>
+    <RecipeContext.Provider>
       {children}
     </RecipeContext.Provider>
   );
