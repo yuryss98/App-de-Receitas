@@ -11,6 +11,7 @@ function App() {
     <RecipeProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route exact path="/xablau" component={ Login } />
       </Switch>
     </RecipeProvider>
   );
