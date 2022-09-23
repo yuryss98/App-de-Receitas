@@ -1,29 +1,52 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
+
+// currentPage === '/' || currentPage.includes('/', 2)
 
 function Header() {
   const history = useHistory();
   console.log(history);
   const currentPage = history.location.pathname;
-  const pageTitle = currentPage === '/' ? '' : currentPage.replace('/', '');
+  const pageTitle = currentPage.replace('/', '');
+  const spacedPageTitle = pageTitle.split('-');
+
+  console.log(spacedPageTitle);
+
+  const checkForHeaderSearch = currentPage === '/profile'
+  || currentPage === '/done-recipes'
+  || currentPage === '/favorite-recipes';
+
+  const putsBothInCapital = () => {
+    const toCapital = spacedPageTitle
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+
+    return `${toCapital[0]} ${toCapital[1]}`;
+  };
 
   return (
     <header>
       <h1 data-testid="page-title">
         {
-          pageTitle.charAt(0).toUpperCase() + pageTitle.slice(1)
+          spacedPageTitle.length === 2
+            ? putsBothInCapital()
+            : pageTitle.charAt(0).toUpperCase() + pageTitle.slice(1)
         }
       </h1>
       <img
-        src="src/images/profileIcon.svg"
+        src={ profileIcon }
         alt="Icone de perfil"
         data-testid="profile-top-btn"
       />
-      <img
-        src="src/images/searchIcon.svg"
-        alt="Icone de pesquisa"
-        data-testid="search-top-btn"
-      />
+      {
+        !checkForHeaderSearch
+        && (<img
+          src={ searchIcon }
+          alt="Icone de pesquisa"
+          data-testid="search-top-btn"
+        />)
+      }
     </header>
   );
 }
