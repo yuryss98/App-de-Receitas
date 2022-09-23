@@ -4,9 +4,13 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
+let historyGlobal;
+
 describe('testes da pagina de login', () => {
   beforeEach(() => {
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
+
+    historyGlobal = history;
   });
 
   it('verificando se os inputs e o botão funcionan corretamente', () => {
@@ -28,5 +32,19 @@ describe('testes da pagina de login', () => {
     userEvent.type(passwordInput, '1234567');
 
     expect(button.disabled).toBe(false);
+  });
+
+  it('verifica se ao fazer login a rota muda para /meals', () => {
+    const emailInput = screen.getByTestId('email-input');
+    const passwordInput = screen.getByTestId('password-input');
+    const buttonSubmit = screen.getByTestId('login-submit-btn');
+
+    const correctEmail = 'teste@teste.com';
+
+    userEvent.type(emailInput, correctEmail);
+    userEvent.type(passwordInput, '1234567');
+    userEvent.click(buttonSubmit);
+
+    expect(historyGlobal.location.pathname).toBe('/meals');
   });
 });
