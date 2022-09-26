@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import searchApi from '../services/Fetch';
+import RecipeContext from '../context/RecipeContext';
 
 function SearchBar({ inputSearch }) {
   const [searchRadio, setSearchRadio] = useState('');
   const history = useHistory();
+  const { setRecipesData } = useContext(RecipeContext);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -14,16 +16,25 @@ function SearchBar({ inputSearch }) {
   };
 
   const returnedData = (data) => {
-    if (Object.keys(data).length === 1) {
-      const route = history.location.pathname;
-      if (route === '/meals') {
+    const currentPage = history.location.pathname;
+    const pageTitle = currentPage.replace('/', '');
+    if (data[pageTitle].length === 1) {
+      if (currentPage === '/meals') {
         const id = data.meals[0].idMeal;
-        const redirection = `${route}/${id}`;
+        const redirection = `${currentPage}/${id}`;
         history.push(redirection);
       } else {
         const id = data.drinks[0].idDrink;
-        const redirection = `${route}/${id}`;
+        const redirection = `${currentPage}/${id}`;
         history.push(redirection);
+      }
+    }
+
+    if (data[pageTitle].length > 1) {
+      if (currentPage === '/meals') {
+        setRecipesData(data.meals);
+      } else {
+        setRecipesData(data.drinks);
       }
     }
   };
