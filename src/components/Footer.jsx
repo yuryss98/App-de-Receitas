@@ -6,18 +6,23 @@ function Footer({ history }) {
   return (
     <footer data-testid="footer">
       <button
+        id="drink-btn"
         type="button"
         data-testid="drinks-bottom-btn"
         onClick={ () => history.push('/drinks') }
+        src="src/images/drinkIcon.svg"
       >
-        <img src="drinkIcon.svg" alt="drink icon" />
+        .
       </button>
       <button
+        id="meals-btn"
         type="button"
         data-testid="meals-bottom-btn"
         onClick={ () => history.push('/meals') }
+        src="src/images/mealIcon.svg"
       >
-        <img src="mealIcon.svg" alt="meal icon" />
+        .
+
       </button>
     </footer>
   );
