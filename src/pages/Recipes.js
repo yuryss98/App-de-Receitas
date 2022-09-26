@@ -6,11 +6,12 @@ import { fetchAllMeals,
   fetchAllMealsCategories, fetchCategoriesMeals } from '../services/Fetch';
 import RecipesCard from '../components/RecipesCard';
 import CategoryButton from '../components/CategoryButton';
+import Footer from '../components/Footer';
 
 const maxResult = 12;
 const maxMealsCategory = 5;
 
-function Recipes({ match: { path } }) {
+function Recipes({ match: { path }, history }) {
   const { resultMeals,
     setResultMeals,
     resultMealsCategory, setResultMealsCategory,
@@ -66,6 +67,7 @@ function Recipes({ match: { path } }) {
             path={ path }
           />
         ))}
+      <Footer history={ history } />
     </div>
   );
 }
@@ -74,6 +76,7 @@ Recipes.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string.isRequired,
   }).isRequired,
+  history: PropTypes.string.isRequired,
 };
 
 export default Recipes;

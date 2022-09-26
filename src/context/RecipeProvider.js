@@ -9,6 +9,7 @@ function RecipeProvider({ children }) {
   const [resultDrinksCategory, setResultDrinksCategory] = useState({});
   const [categoryMeals, setCategoryMeals] = useState({});
   const [categoryDrinks, setCategoryDrinks] = useState({});
+  const [recipeDetails, setRecipeDetails] = useState({});
 
   const contextValue = {
     resultMeals,
@@ -23,6 +24,8 @@ function RecipeProvider({ children }) {
     setResultDrinksCategory,
     categoryDrinks,
     setCategoryDrinks,
+    recipeDetails,
+    setRecipeDetails,
   };
 
   return (
