@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import RecipeCard from '../components/RecipeCard';
 import RecipeContext from '../context/RecipeContext';
 
-function Meals() {
+function Drinks() {
   const { recipesData } = useContext(RecipeContext);
 
   return (
@@ -15,8 +15,8 @@ function Meals() {
             <RecipeCard
               key={ recipe.id }
               recipe={ recipe }
-              title="strMeal"
-              img="strMealThumb"
+              title="strDrink"
+              img="strDrinkThumb"
               index={ index }
             />
           );
@@ -27,4 +27,4 @@ function Meals() {
   );
 }
 
-export default Meals;
+export default Drinks;
