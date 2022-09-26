@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import searchApi from '../services/Fetch';
+import { searchApi } from '../services/Fetch';
 import RecipeContext from '../context/RecipeContext';
 
 function SearchBar({ inputSearch }) {
