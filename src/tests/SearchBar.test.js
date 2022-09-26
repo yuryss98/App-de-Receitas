@@ -7,22 +7,22 @@ import renderWithRouter from './helpers/renderWithRouter';
 describe('Testando componente SearchBar', () => {
   it('Se SearchBar é renderizado na pagina meals', () => {
     renderWithRouter(<App />, '/meals');
-    const searchButton = screen.getByTestId('search-top-btn');
+    // const searchButton = screen.getByTestId('search-top-btn');
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('exec-search-btn');
-    const searchTypeButton = screen.getByTestId('search-input');
+    // const searchInput = screen.getByTestId('exec-search-btn');
+    // const searchTypeButton = screen.getByTestId('search-input');
     expect(searchInput).toBeInTheDocument();
     expect(searchTypeButton).toBeInTheDocument();
   });
 
   it('Se é possivel pesquisar receitas de comida', () => {
     renderWithRouter(<App />, '/meals');
-    const searchButton = screen.getByTestId('search-top-btn');
+    // const searchButton = screen.getByTestId('search-top-btn');
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('exec-search-btn');
-    const searchTypeButton = screen.getByTestId('search-input');
+    // const searchInput = screen.getByTestId('exec-search-btn');
+    // const searchTypeButton = screen.getByTestId('search-input');
     const ingredientRadioButton = screen.getByText('Ingrediente');
     userEvent.type(searchInput);
     userEvent.click(ingredientRadioButton);
@@ -31,11 +31,11 @@ describe('Testando componente SearchBar', () => {
 
   it('Se é possivel pesquisar receitas de drinks', () => {
     renderWithRouter(<App />, '/drinks');
-    const searchButton = screen.getByTestId('search-top-btn');
+    // const searchButton = screen.getByTestId('search-top-btn');
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('exec-search-btn');
-    const searchTypeButton = screen.getByTestId('search-input');
+    // const searchInput = screen.getByTestId('exec-search-btn');
+    // const searchTypeButton = screen.getByTestId('search-input');
     const ingredientRadioButton = screen.getByText('Ingrediente');
     userEvent.type(searchInput);
     userEvent.click(ingredientRadioButton);
@@ -57,7 +57,7 @@ describe('Testando componente SearchBar', () => {
   });
 
   it('Se redireciona caso pesquise apenas um receita', () => {
-    const { history } = renderWithRouter(<App />, '/meals');
+    // const { history } = renderWithRouter(<App />, '/meals');
     const searchButton = screen.getByTestId('search-top-btn');
     userEvent.click(searchButton);
 
