@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeContext from './RecipeContext';
 
@@ -10,6 +10,11 @@ function RecipeProvider({ children }) {
   const [categoryMeals, setCategoryMeals] = useState({});
   const [categoryDrinks, setCategoryDrinks] = useState({});
   const [recipeDetails, setRecipeDetails] = useState({});
+  const [recipesData, setRecipesData] = useState([]);
+
+  useEffect(() => {
+    console.log(recipesData);
+  }, [recipesData]);
 
   const contextValue = {
     resultMeals,
@@ -25,6 +30,8 @@ function RecipeProvider({ children }) {
     categoryDrinks,
     setCategoryDrinks,
     recipeDetails,
+    recipesData,
+    setRecipesData,
     setRecipeDetails,
   };
 
