@@ -35,8 +35,6 @@ function DrinksDetailsRender() {
     fetchingRecomendedMeals();
   }, []);
 
-  if (recomendedMeals.length > 0) console.log(recomendedMeals);
-
   const halfLengthOfIngredientsDrink = Math.ceil(ingredientsDrink.length / 2);
 
   return (
@@ -85,6 +83,7 @@ function DrinksDetailsRender() {
                     className="card"
                     style={ { width: '11rem' } }
                     data-testid={ `${i}-recommendation-card` }
+                    key={ strMeal }
                   >
                     <img
                       src={ `${strMealThumb}` }
@@ -106,6 +105,13 @@ function DrinksDetailsRender() {
             })}
         </div>
       </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="fixed-bottom"
+      >
+        Start recipe
+      </button>
     </section>
   );
 }

@@ -92,6 +92,7 @@ function MealsDetailsRender() {
                     className="card"
                     style={ { width: '11rem' } }
                     data-testid={ `${i}-recommendation-card` }
+                    key={ strDrink }
                   >
                     <img
                       src={ `${strDrinkThumb}` }
@@ -113,6 +114,13 @@ function MealsDetailsRender() {
             })}
         </div>
       </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="fixed-bottom"
+      >
+        Start recipe
+      </button>
     </section>
   );
 }
