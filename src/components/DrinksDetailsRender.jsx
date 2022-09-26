@@ -29,13 +29,11 @@ function DrinksDetailsRender() {
     const fetchingRecomendedMeals = async () => {
       const info = await fetch(`${RECOMENDATION_URL}`)
         .then((result) => result.json());
-      setRecomendedMeals(info);
+      setRecomendedMeals(info.meals);
     };
 
     fetchingRecomendedMeals();
   }, []);
-
-  if (recomendedMeals.meals) console.log(recomendedMeals);
 
   const halfLengthOfIngredientsDrink = Math.ceil(ingredientsDrink.length / 2);
 
@@ -74,6 +72,46 @@ function DrinksDetailsRender() {
         {data.strInstructions}
       </div>
       <br />
+      <div className="container-fluid">
+        <div className="row flex-row flex-nowrap overflow-auto">
+          {recomendedMeals.length > 0 && recomendedMeals
+            .map(({ strMealThumb, strMeal }, i) => {
+              const indexForSixItems = 6;
+              if (i < indexForSixItems) {
+                return (
+                  <div
+                    className="card"
+                    style={ { width: '11rem' } }
+                    data-testid={ `${i}-recommendation-card` }
+                    key={ strMeal }
+                  >
+                    <img
+                      src={ `${strMealThumb}` }
+                      alt={ i }
+                      className="card-img-top"
+                    />
+                    <div className="card-body">
+                      <h5
+                        className="card-title"
+                        data-testid={ `${i}-recommendation-title` }
+                      >
+                        {strMeal}
+                      </h5>
+                    </div>
+                  </div>
+                );
+              }
+              return undefined;
+            })}
+        </div>
+      </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="fixed-bottom"
+      >
+        Start recipe
+      </button>
     </section>
   );
 }
