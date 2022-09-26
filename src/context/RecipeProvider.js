@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeContext from './RecipeContext';
 
 function RecipeProvider({ children }) {
-  // const contextValue = {
-  // };
+  const [recipeDetails, setRecipeDetails] = useState({});
+
+  const contextValue = {
+    recipeDetails,
+    setRecipeDetails,
+  };
 
   return (
-    <RecipeContext.Provider>
+    <RecipeContext.Provider value={ contextValue }>
       {children}
     </RecipeContext.Provider>
   );
