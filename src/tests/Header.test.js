@@ -4,26 +4,33 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
+window.alert = jest.fn();
+
+const SEARC_BTN = 'search-top-btn';
+const PROFILE_BTN = 'profile-top-btn';
+
 describe('Testando componente Header', () => {
   it('Se Header é renderizado na pagina meals', async () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/meals');
+    const { history } = renderWithRouter(<App />, '/meals');
     expect(history.location.pathname).toBe('/meals');
-    const resultText = await screen.findByText(/Beef/i);
+    const resultText = await screen.findByText('Meals');
+    const profileButton = screen.getByTestId(PROFILE_BTN);
+    const searchButton = screen.getByTestId(SEARC_BTN);
     expect(resultText).toBeInTheDocument();
+    expect(profileButton).toBeInTheDocument();
+    expect(searchButton).toBeInTheDocument();
   });
 
   it('Se Header é renderizado drinks', async () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/drinks');
+    const { history } = renderWithRouter(<App />, '/drinks');
     expect(history.location.pathname).toBe('/drinks');
-    const resultText = await screen.findByText(/Shake/i);
+    const resultText = await screen.findByText('Drinks');
     expect(resultText).toBeInTheDocument();
   });
 
   it('Se clicando no botão perfil muda a rota para /perfil', () => {
     const { history } = renderWithRouter(<App />, '/meals');
-    const profileButton = screen.getByTestId('profile-top-btn');
+    const profileButton = screen.getByTestId(PROFILE_BTN);
 
     userEvent.click(profileButton);
 
@@ -32,7 +39,7 @@ describe('Testando componente Header', () => {
 
   it('Se clicando no botão search a barra de busca aparece', () => {
     renderWithRouter(<App />, '/meals');
-    const searchButton = screen.getByTestId('search-top-btn');
+    const searchButton = screen.getByTestId(SEARC_BTN);
 
     userEvent.click(searchButton);
 
@@ -44,5 +51,21 @@ describe('Testando componente Header', () => {
     renderWithRouter(<App />, '/done-recipes');
     const headerTitle = screen.getByTestId('page-title');
     expect(headerTitle.innerHTML).toBe('Done Recipes');
+  });
+
+  it('Se aparece um alerta caso pesquise com manis de uma letra', () => {
+    renderWithRouter(<App />, '/drinks');
+    const searchButton = screen.getByTestId(SEARC_BTN);
+    userEvent.click(searchButton);
+
+    const searchInput = screen.getByTestId('search-input');
+    const searchTypeButton = screen.getByTestId('exec-search-btn');
+    const firstLetterRadioButton = screen.getByTestId('first-letter-search-radio');
+    userEvent.type(searchInput, 'milk');
+    userEvent.click(firstLetterRadioButton);
+    userEvent.click(searchTypeButton);
+    expect(firstLetterRadioButton).toBeChecked();
+    expect(window.alert).toHaveBeenCalledTimes(1);
+    expect(window.alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
   });
 });
