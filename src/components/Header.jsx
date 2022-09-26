@@ -72,7 +72,7 @@ function Header() {
         )
           }
           {search && (
-            <form>
+            <section>
               <SearchBar inputSearch={ inputSearch } />
               <input
                 data-testid="search-input"
@@ -80,7 +80,7 @@ function Header() {
                 value={ inputSearch }
                 onChange={ ({ target }) => setInputSearch(target.value) }
               />
-            </form>
+            </section>
           )}
         </header>
       )}
