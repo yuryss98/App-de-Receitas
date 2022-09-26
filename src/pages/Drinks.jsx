@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Meals() {
+function Drinks() {
   return (
     <div>
-      Meals
+      Drinks
     </div>
   );
 }
 
-export default Meals;
+export default Drinks;
