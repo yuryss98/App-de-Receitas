@@ -1,5 +1,3 @@
-/* eslint-disable max-lines */
-/* eslint-disable max-len */
 const drinks = {
   drinks: [
     {
@@ -19,7 +17,6 @@ const drinks = {
       strGlass: 'Collin Glass',
       strInstructions: 'Pour the Galliano liqueur over ice. Fill the remainder of the glass with ginger ale and thats all there is to it. You now have a your very own GG.',
       strInstructionsES: null,
-      // eslint-disable-next-line max-len
       strInstructionsDE: 'Den Galliano-Likör über Eis gießen. Füllen Sie den Rest des Glases mit Ginger Ale und das ist alles, was dazu gehört. Du hast jetzt ein eigenes GG.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,

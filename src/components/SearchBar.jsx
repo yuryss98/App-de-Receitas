@@ -10,9 +10,9 @@ function SearchBar({ inputSearch }) {
   const { setRecipesData } = useContext(RecipeContext);
 
   const handleChange = ({ target }) => {
-    const { value } = target;
+    const val = target.value;
 
-    setSearchRadio(value);
+    setSearchRadio(val);
   };
 
   const returnedData = (data) => {

@@ -1,5 +1,3 @@
-/* eslint-disable max-lines */
-/* eslint-disable max-len */
 const tomatoPure = 'tomatoPure';
 const meals = {
   meals: [

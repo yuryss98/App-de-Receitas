@@ -49,6 +49,8 @@ export const searchApi = async (search, route) => {
   const MEALS_URL = `https://www.themealdb.com/api/json/v1/1/${search}`;
   const DRINKS_URL = `https://www.thecocktaildb.com/api/json/v1/1/${search}`;
 
+  console.log(MEALS_URL);
+
   if (route === '/meals') {
     try {
       const response = await fetch(MEALS_URL);
