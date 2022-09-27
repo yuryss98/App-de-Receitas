@@ -5,10 +5,8 @@ import RecipeContext from './RecipeContext';
 function RecipeProvider({ children }) {
   const [resultMeals, setResultMeals] = useState({});
   const [resultDrinks, setResultDrinks] = useState({});
-  const [resultMealsCategory, setResultMealsCategory] = useState({});
-  const [resultDrinksCategory, setResultDrinksCategory] = useState({});
-  const [categoryMeals, setCategoryMeals] = useState({});
-  const [categoryDrinks, setCategoryDrinks] = useState({});
+  const [resultCategory, setResultCategory] = useState({});
+  const [allCategories, setAllCategories] = useState({});
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recipesData, setRecipesData] = useState([]);
 
@@ -17,14 +15,10 @@ function RecipeProvider({ children }) {
     setResultMeals,
     resultDrinks,
     setResultDrinks,
-    resultMealsCategory,
-    setResultMealsCategory,
-    resultDrinksCategory,
-    setCategoryMeals,
-    categoryMeals,
-    setResultDrinksCategory,
-    categoryDrinks,
-    setCategoryDrinks,
+    resultCategory,
+    setResultCategory,
+    setAllCategories,
+    allCategories,
     recipeDetails,
     recipesData,
     setRecipesData,

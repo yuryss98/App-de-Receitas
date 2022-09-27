@@ -19,7 +19,7 @@ function MealsDetailsRender() {
           return item.includes('strMeasure');
         })
         .map((ing) => data[ing])
-        .filter((item) => item !== '' && item !== null);
+        .filter((item) => item !== '' && item !== null && item !== ' ');
       setIngredients(filteredIngredients);
     };
 
@@ -63,7 +63,9 @@ function MealsDetailsRender() {
               data-testid={ `${i}-ingredient-name-and-measure` }
               key={ item + i }
             >
-              {`${ingredients[halfLengthOfIngredients + i]} of ${item}`}
+              {item}
+              {'     '}
+              {ingredients[halfLengthOfIngredients + i]}
             </div>
           ))}
       </div>
