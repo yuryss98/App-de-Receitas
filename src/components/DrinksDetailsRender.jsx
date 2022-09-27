@@ -62,7 +62,9 @@ function DrinksDetailsRender() {
               data-testid={ `${i}-ingredient-name-and-measure` }
               key={ item + i }
             >
-              {`${ingredientsDrink[halfLengthOfIngredientsDrink + i]} of ${item}`}
+              {item}
+              {' '}
+              {ingredientsDrink[halfLengthOfIngredientsDrink + i]}
 
             </div>
           ))}
