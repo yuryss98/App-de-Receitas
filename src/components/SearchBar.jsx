@@ -36,9 +36,9 @@ function SearchBar({ inputSearch }) {
 
     if (data[pageTitle].length > 1) {
       if (currentPage === '/meals') {
-        setRecipesData(data.meals);
+        setRecipesData(data);
       } else {
-        setRecipesData(data.drinks);
+        setRecipesData(data);
       }
     }
   };
