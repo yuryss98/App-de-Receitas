@@ -16,7 +16,7 @@ function Drinks() {
           if (index < numMaxCard) {
             return (
               <RecipeCard
-                key={ recipe.id }
+                key={ recipe.idDrink }
                 recipe={ recipe }
                 title="strDrink"
                 img="strDrinkThumb"

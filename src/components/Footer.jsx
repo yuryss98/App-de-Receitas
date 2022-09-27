@@ -12,7 +12,7 @@ function Footer({ history }) {
         onClick={ () => history.push('/drinks') }
         src="src/images/drinkIcon.svg"
       >
-        .
+        Drinks
       </button>
       <button
         id="meals-btn"
@@ -21,8 +21,7 @@ function Footer({ history }) {
         onClick={ () => history.push('/meals') }
         src="src/images/mealIcon.svg"
       >
-        .
-
+        Meals
       </button>
     </footer>
   );
