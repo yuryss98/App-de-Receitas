@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import RecipeContext from '../context/RecipeContext';
 
 const RECOMENDATION_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const indexForSixItems = 6;
 
 function DrinksDetailsRender() {
   const { recipeDetails } = useContext(RecipeContext);
@@ -74,35 +75,29 @@ function DrinksDetailsRender() {
       <br />
       <div className="container-fluid">
         <div className="row flex-row flex-nowrap overflow-auto">
-          {recomendedMeals.length > 0 && recomendedMeals
-            .map(({ strMealThumb, strMeal }, i) => {
-              const indexForSixItems = 6;
-              if (i < indexForSixItems) {
-                return (
-                  <div
-                    className="card"
-                    style={ { width: '11rem' } }
-                    data-testid={ `${i}-recommendation-card` }
-                    key={ strMeal }
+          {recomendedMeals.length > 0 && recomendedMeals.slice(0, indexForSixItems)
+            .map(({ strMealThumb, strMeal }, i) => (
+              <div
+                className="card"
+                style={ { width: '11rem' } }
+                data-testid={ `${i}-recommendation-card` }
+                key={ strMeal }
+              >
+                <img
+                  src={ `${strMealThumb}` }
+                  alt={ i }
+                  className="card-img-top"
+                />
+                <div className="card-body">
+                  <h5
+                    className="card-title"
+                    data-testid={ `${i}-recommendation-title` }
                   >
-                    <img
-                      src={ `${strMealThumb}` }
-                      alt={ i }
-                      className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h5
-                        className="card-title"
-                        data-testid={ `${i}-recommendation-title` }
-                      >
-                        {strMeal}
-                      </h5>
-                    </div>
-                  </div>
-                );
-              }
-              return undefined;
-            })}
+                    {strMeal}
+                  </h5>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
       <button
