@@ -48,11 +48,11 @@ function Header() {
           <button
             type="button"
             onClick={ handleProfileClick }
+            data-testid="profile-top-btn"
           >
             <img
               src={ profileIcon }
               alt="Icone de perfil"
-              data-testid="profile-top-btn"
             />
           </button>
           {
@@ -61,11 +61,11 @@ function Header() {
           <button
             type="button"
             onClick={ () => setSearch(!search) }
+            data-testid="search-top-btn"
           >
             <img
               src={ searchIcon }
               alt="Icone de pesquisa"
-              data-testid="search-top-btn"
             />
           </button>
 
