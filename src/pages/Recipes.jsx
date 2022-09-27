@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
-// import useResult from '../effects/AllResults';
 import { fetchAllRecipes,
   fetchAllCategories, fetchCategories } from '../services/Fetch';
 import RecipeCard from '../components/RecipeCard';
@@ -33,7 +32,7 @@ function Recipes() {
       setResultCategory(allCategory);
     };
     getFetch();
-    }, [currentPage]); // eslint-disable-line
+  }, [currentPage]); // eslint-disable-line
 
   const categoryApi = async (id) => {
     if (allCategories[currentPageKey]) {
@@ -42,7 +41,6 @@ function Recipes() {
       return setRecipesData(resultDefault);
     }
     const resultID = await fetchCategories(id, currentPage);
-    console.log(resultID);
     setRecipesData(resultID);
     setAllCategories(resultID);
   };
