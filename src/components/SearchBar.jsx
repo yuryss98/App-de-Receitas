@@ -18,53 +18,46 @@ function SearchBar({ inputSearch }) {
   const returnedData = (data) => {
     const currentPage = history.location.pathname;
     const pageTitle = currentPage.replace('/', '');
-    if (data[pageTitle] === null) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      return true;
-    }
-    if (data[pageTitle].length === 1) {
-      if (currentPage === '/meals') {
-        const id = data.meals[0].idMeal;
-        const redirection = `${currentPage}/${id}`;
-        history.push(redirection);
-      } else {
-        const id = data.drinks[0].idDrink;
-        const redirection = `${currentPage}/${id}`;
-        history.push(redirection);
-      }
+
+    if (data.meals === null || data.drinks === null || !data) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
 
     if (data[pageTitle].length > 1) {
-      if (currentPage === '/meals') {
-        setRecipesData(data);
-      } else {
-        setRecipesData(data);
-      }
+      return setRecipesData(data);
+    }
+
+    if (currentPage === '/meals') {
+      const id = data.meals[0].idMeal;
+      const newRota = `${currentPage}/${id}`;
+      history.push(newRota);
+    } else {
+      const id = data.drinks[0].idDrink;
+      const newRota = `${currentPage}/${id}`;
+      history.push(newRota);
     }
   };
 
   const handleSearch = async (route) => {
     let data;
-    switch (searchRadio) {
-    case 'Ingredient':
+
+    if (searchRadio === 'Ingredient') {
       data = await searchApi(`filter.php?i=${inputSearch}`, route);
-      returnedData(data);
-      break;
-
-    case 'Name':
-      data = await searchApi(`search.php?s=${inputSearch}`, route);
-      returnedData(data);
-      break;
-
-    default:
-      if (inputSearch.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
-      } else {
-        data = await searchApi(`search.php?f=${inputSearch}`, route);
-        returnedData(data);
-      }
-      break;
     }
+
+    if (searchRadio === 'Name') {
+      data = await searchApi(`search.php?s=${inputSearch}`, route);
+    }
+
+    if (searchRadio === 'First letter') {
+      if (inputSearch.length > 1) {
+        return global.alert('Your search must have only 1 (one) character');
+      }
+
+      data = await searchApi(`search.php?f=${inputSearch}`, route);
+    }
+
+    returnedData(data);
   };
 
   return (

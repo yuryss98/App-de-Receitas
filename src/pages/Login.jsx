@@ -46,19 +46,19 @@ function Login({ history }) {
         <input
           type="email"
           name="email"
-          id=""
+          id="email"
           value={ email }
           onChange={ handleEmail }
           data-testid="email-input"
         />
       </label>
 
-      <label htmlFor="email">
+      <label htmlFor="password">
         Senha
         <input
           type="password"
-          name=""
-          id=""
+          name="password"
+          id="password"
           value={ password }
           onChange={ handlePassword }
           data-testid="password-input"

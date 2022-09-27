@@ -14,6 +14,8 @@ const EXEC_SEARCH_BTN = 'exec-search-btn';
 const SEARCH_TOP_BTN = 'search-top-btn';
 const SEARCH_INPUT = 'search-input';
 
+const constantsUrls = ['https://www.themealdb.com/api/json/v1/1/search.php?f=', 'https://www.thecocktail.com/api/json/v1/1/search.php?f=', 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'https://www.themealdb.com/api/json/v1/1/list.php?c=list'];
+
 describe('Testando componente SearchBar', () => {
   it('Se SearchBar é renderizado na pagina meals', () => {
     renderWithRouter(<App />, '/meals');
@@ -27,10 +29,10 @@ describe('Testando componente SearchBar', () => {
     const QUERY = 'Corba';
     global.fetch = jest.fn((url) => {
       let response = meals;
-      if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?f=') response = meals;
-      if (url === 'https://www.thecocktail.com/api/json/v1/1/search.php?f=') response = drinks;
-      if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') response = drinks;
-      if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') response = categoryMeals;
+      if (url === constantsUrls[0]) response = meals;
+      if (url === constantsUrls[1]) response = drinks;
+      if (url === constantsUrls[2])response = drinks;
+      if (url === constantsUrls[3]) response = categoryMeals;
       if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?i=milk') response = meals;
       return Promise.resolve({
         json: () => Promise.resolve(response),
@@ -40,7 +42,7 @@ describe('Testando componente SearchBar', () => {
     const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('search-input');
+    const searchInput = screen.getByTestId(SEARCH_INPUT);
     const searchTypeButton = screen.getByTestId(SEARCH_INPUT);
     const ingredientRadioButton = screen.getByTestId(/ingredient-search-radio/);
 
@@ -60,8 +62,8 @@ describe('Testando componente SearchBar', () => {
     const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('search-input');
-    const searchTypeButton = screen.getByTestId('exec-search-btn');
+    const searchInput = screen.getByTestId(SEARCH_INPUT);
+    const searchTypeButton = screen.getByTestId(EXEC_SEARCH_BTN);
     const ingredientRadioButton = screen.getByTestId(/ingredient-search-radio/);
     userEvent.type(searchInput, 'milk');
     userEvent.click(ingredientRadioButton);
@@ -73,10 +75,10 @@ describe('Testando componente SearchBar', () => {
     const QUERY = 'Moussaka';
     global.fetch = jest.fn((url) => {
       let response = meals;
-      if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?f=') response = meals;
-      if (url === 'https://www.thecocktail.com/api/json/v1/1/search.php?f=') response = drinks;
-      if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') response = drinks;
-      if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') response = categoryMeals;
+      if (url === constantsUrls[0]) response = meals;
+      if (url === constantsUrls[1]) response = drinks;
+      if (url === constantsUrls[2])response = drinks;
+      if (url === constantsUrls[3]) response = categoryMeals;
       if (url === `https://www.themealdb.com/api/json/v1/1/search.php?s=${QUERY}`) response = oneMeal;
       return Promise.resolve({
         json: () => Promise.resolve(response),
@@ -87,8 +89,8 @@ describe('Testando componente SearchBar', () => {
 
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('search-input');
-    const searchTypeButton = screen.getByTestId('exec-search-btn');
+    const searchInput = screen.getByTestId(SEARCH_INPUT);
+    const searchTypeButton = screen.getByTestId(EXEC_SEARCH_BTN);
     const nameRadioButton = screen.getByLabelText(/Nome/i);
 
     userEvent.click(nameRadioButton);
@@ -118,8 +120,8 @@ describe('Testando componente SearchBar', () => {
 
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId('search-input');
-    const searchTypeButton = screen.getByTestId('exec-search-btn');
+    const searchInput = screen.getByTestId(SEARCH_INPUT);
+    const searchTypeButton = screen.getByTestId(EXEC_SEARCH_BTN);
     const nameRadioButton = screen.getByTestId('name-search-radio');
 
     userEvent.clear(searchInput);

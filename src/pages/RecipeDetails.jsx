@@ -29,8 +29,7 @@ function RecipeDetails() {
           setRecipeDetails(data);
         }
       } catch (e) {
-        console.log(e.message);
-        console.log(pathname)
+        return e.message;
       }
     };
     fetching();
