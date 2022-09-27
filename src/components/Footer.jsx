@@ -12,7 +12,7 @@ function Footer({ history }) {
         onClick={ () => history.push('/drinks') }
         src="src/images/drinkIcon.svg"
       >
-        Drinks
+        Drink
       </button>
       <button
         id="meals-btn"
