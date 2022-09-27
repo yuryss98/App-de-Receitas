@@ -1,8 +1,8 @@
 const oneMeal = {
   meals: [
     {
-      idMeal: '52771',
-      strMeal: 'Spicy Arrabiata Penne',
+      idMeal: '52977',
+      strMeal: 'Moussaka',
       strDrinkAlternate: null,
       strCategory: 'Vegetarian',
       strArea: 'Italian',
