@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-//
-
 function Header() {
   const [search, setSearch] = useState(false);
-  //   const [currentPage, setCurrentPage] = useState('');
   const [conditional, setConditional] = useState(false);
-
   const [inputSearch, setInputSearch] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+
+  }, [location]);
 
   const history = useHistory();
-  //   setCurrentPage(history.location.pathname);
   const currentPage = history.location.pathname;
   const pageTitle = currentPage.replace('/', '');
   const spacedPageTitle = pageTitle.split('-');
@@ -72,7 +72,7 @@ function Header() {
         )
           }
           {search && (
-            <form>
+            <section>
               <SearchBar inputSearch={ inputSearch } />
               <input
                 data-testid="search-input"
@@ -80,7 +80,7 @@ function Header() {
                 value={ inputSearch }
                 onChange={ ({ target }) => setInputSearch(target.value) }
               />
-            </form>
+            </section>
           )}
         </header>
       )}
