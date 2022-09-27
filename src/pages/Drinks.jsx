@@ -1,40 +1,3 @@
-// import React, { useContext } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import RecipeCard from '../components/RecipeCard';
-// import RecipeContext from '../context/RecipeContext';
-// import Footer from '../components/Footer';
-
-// function Drinks() {
-//   const { recipesData } = useContext(RecipeContext);
-//   const history = useHistory();
-//   return (
-//     <>
-//       <main>
-//         {recipesData.length && recipesData.map((recipe, index) => {
-//           const numMaxCard = 12;
-
-//           if (index < numMaxCard) {
-//             return (
-//               <RecipeCard
-//                 key={ recipe.id }
-//                 recipe={ recipe }
-//                 title="strDrink"
-//                 img="strDrinkThumb"
-//                 index={ index }
-//               />
-//             );
-//           }
-//           return null;
-//         })}
-//       </main>
-//       <Footer history={ history } />
-
-//     </>
-//   );
-// }
-
-// export default Drinks;
-
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipeContext from '../context/RecipeContext';
@@ -49,10 +12,11 @@ const maxResult = 12;
 const maxDrinksCategory = 5;
 
 function Drinks({ match: { path }, history }) {
-  const { resultDrinks,
+  const {
     resultDrinksCategory,
     setResultDrinksCategory,
-    setResultDrinks, setCategoryDrinks, categoryDrinks } = useContext(RecipeContext);
+    setCategoryDrinks,
+    categoryDrinks, recipesData, setRecipesData } = useContext(RecipeContext);
 
   const categoryApiDrinks = async (id) => {
     if (categoryDrinks.drinks) {
@@ -63,7 +27,9 @@ function Drinks({ match: { path }, history }) {
     setCategoryDrinks(resultID);
   };
 
-  useResult(fetchAllDrinks, setResultDrinks);
+  console.log(recipesData);
+
+  useResult(fetchAllDrinks, setRecipesData);
   useResult(fetchAllDrinksCategories, setResultDrinksCategory);
 
   return (
@@ -95,7 +61,7 @@ function Drinks({ match: { path }, history }) {
             id={ drinks.idDrink }
             path={ path }
           />
-        )) : resultDrinks.drinks && resultDrinks.drinks
+        )) : recipesData.drinks && recipesData.drinks
         .slice(0, maxResult).map((drink, index) => (
           <RecipesCard
             index={ index }

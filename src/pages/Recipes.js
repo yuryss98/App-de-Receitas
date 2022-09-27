@@ -12,10 +12,10 @@ const maxResult = 12;
 const maxMealsCategory = 5;
 
 function Recipes({ match: { path }, history }) {
-  const { resultMeals,
-    setResultMeals,
+  const {
     resultMealsCategory, setResultMealsCategory,
-    categoryMeals, setCategoryMeals } = useContext(RecipeContext);
+    categoryMeals, setCategoryMeals,
+    recipesData, setRecipesData } = useContext(RecipeContext);
 
   const categoryApiFoods = async (id) => {
     if (categoryMeals.meals) {
@@ -25,7 +25,9 @@ function Recipes({ match: { path }, history }) {
     setCategoryMeals(resultID);
   };
 
-  useResult(fetchAllMeals, setResultMeals);
+  console.log(recipesData);
+
+  useResult(fetchAllMeals, setRecipesData);
   useResult(fetchAllMealsCategories, setResultMealsCategory);
 
   return (
@@ -56,7 +58,7 @@ function Recipes({ match: { path }, history }) {
             id={ meals.idMeal }
             path={ path }
           />
-        )) : resultMeals.meals && resultMeals.meals
+        )) : recipesData.meals && recipesData.meals
         .slice(0, maxResult).map((meal, index) => (
           <RecipesCard
             index={ index }
