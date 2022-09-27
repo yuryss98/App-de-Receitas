@@ -1,28 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/Footer.css';
+import { Link } from 'react-router-dom';
+import mealIcon from '../images/mealIcon.svg';
+import drinkIcon from '../images/drinkIcon.svg';
 
-function Footer({ history }) {
+function Footer() {
   return (
     <footer data-testid="footer">
-      <button
-        id="drink-btn"
-        type="button"
-        data-testid="drinks-bottom-btn"
-        onClick={ () => history.push('/drinks') }
-        src="src/images/drinkIcon.svg"
-      >
-        Drinks
-      </button>
-      <button
-        id="meals-btn"
-        type="button"
-        data-testid="meals-bottom-btn"
-        onClick={ () => history.push('/meals') }
-        src="src/images/mealIcon.svg"
-      >
-        Meals
-      </button>
+      <Link to="/drinks">
+        <img src={ drinkIcon } alt="Drink Icon" data-testid="drinks-bottom-btn" />
+      </Link>
+      <Link to="/meals">
+        <img src={ mealIcon } alt="Meal Icon" data-testid="meals-bottom-btn" />
+      </Link>
     </footer>
   );
 }
