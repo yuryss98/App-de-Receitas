@@ -27,7 +27,7 @@ function Drinks({ match: { path }, history }) {
     setCategoryDrinks(resultID);
   };
 
-  console.log(recipesData);
+  // console.log(recipesData);
 
   useResult(fetchAllDrinks, setRecipesData);
   useResult(fetchAllDrinksCategories, setResultDrinksCategory);

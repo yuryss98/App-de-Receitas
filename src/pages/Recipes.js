@@ -25,7 +25,7 @@ function Recipes({ match: { path }, history }) {
     setCategoryMeals(resultID);
   };
 
-  console.log(recipesData);
+  // console.log(recipesData);
 
   useResult(fetchAllMeals, setRecipesData);
   useResult(fetchAllMealsCategories, setResultMealsCategory);

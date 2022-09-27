@@ -30,6 +30,7 @@ function RecipeDetails() {
         }
       } catch (e) {
         console.log(e.message);
+        console.log(pathname)
       }
     };
     fetching();

@@ -24,20 +24,32 @@ describe('Testando componente SearchBar', () => {
   });
 
   it('Se é possivel pesquisar receitas de comida', async () => {
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(meals),
-    }));
+    const QUERY = 'Corba';
+    global.fetch = jest.fn((url) => {
+      let response = meals;
+      if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?f=') response = meals;
+      if (url === 'https://www.thecocktail.com/api/json/v1/1/search.php?f=') response = drinks;
+      if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') response = drinks;
+      if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') response = categoryMeals;
+      if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?i=milk') response = meals;
+      return Promise.resolve({
+        json: () => Promise.resolve(response),
+      });
+    });
     renderWithRouter(<App />, '/meals');
     const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId(EXEC_SEARCH_BTN);
+    const searchInput = screen.getByTestId('search-input');
     const searchTypeButton = screen.getByTestId(SEARCH_INPUT);
-    const ingredientRadioButton = screen.getByLabelText('Ingrediente');
+    const ingredientRadioButton = screen.getByTestId(/ingredient-search-radio/);
+
+    userEvent.clear(searchInput);
+    userEvent.click(searchInput);
     userEvent.type(searchInput, 'milk');
     userEvent.click(ingredientRadioButton);
     userEvent.click(searchTypeButton);
-    await waitFor(() => expect(screen.getByText('Corba')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(QUERY)).toBeInTheDocument());
   });
 
   it('Se é possivel pesquisar receitas de drinks', async () => {
@@ -48,9 +60,9 @@ describe('Testando componente SearchBar', () => {
     const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
     userEvent.click(searchButton);
 
-    const searchInput = screen.getByTestId(EXEC_SEARCH_BTN);
-    const searchTypeButton = screen.getByTestId(SEARCH_INPUT);
-    const ingredientRadioButton = screen.getByLabelText('Ingrediente');
+    const searchInput = screen.getByTestId('search-input');
+    const searchTypeButton = screen.getByTestId('exec-search-btn');
+    const ingredientRadioButton = screen.getByTestId(/ingredient-search-radio/);
     userEvent.type(searchInput, 'milk');
     userEvent.click(ingredientRadioButton);
     userEvent.click(searchTypeButton);
@@ -86,5 +98,28 @@ describe('Testando componente SearchBar', () => {
     userEvent.click(searchTypeButton);
     await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(`https://www.themealdb.com/api/json/v1/1/search.php?s=${QUERY}`));
     await waitFor(() => expect(history.location.pathname).toBe('/meals/52977'));
+  });
+  it('Se redireciona caso pesquise apenas um receita', async () => {
+    const QUERY = 'Xablau';
+    window.alert = jest.fn();
+    renderWithRouter(<App />, '/meals');
+    const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
+
+    userEvent.click(searchButton);
+
+    const searchInput = screen.getByTestId('search-input');
+    const searchTypeButton = screen.getByTestId('exec-search-btn');
+    const nameRadioButton = screen.getByTestId('name-search-radio');
+
+    userEvent.clear(searchInput);
+    userEvent.click(searchInput);
+    userEvent.type(searchInput, QUERY);
+    userEvent.click(nameRadioButton);
+    expect(nameRadioButton).toBeChecked();
+    userEvent.click(searchTypeButton);
+    expect(nameRadioButton).toBeChecked();
+    await waitFor(() => expect(window.alert).toHaveBeenCalledWith(
+      'Sorry, we haven\'t found any recipes for these filters.',
+    ));
   });
 });
