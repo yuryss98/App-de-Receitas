@@ -100,7 +100,18 @@ describe('Testando componente SearchBar', () => {
     await waitFor(() => expect(history.location.pathname).toBe('/meals/52977'));
   });
   it('Se redireciona caso pesquise apenas um receita', async () => {
-    const QUERY = 'Xablau';
+    const QUERY = 'rdcfvtygbhunijk,lç,kimjnhubygvft';
+    global.fetch = jest.fn((url) => {
+      let response = meals;
+      if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?f=') response = meals;
+      if (url === 'https://www.thecocktail.com/api/json/v1/1/search.php?f=') response = drinks;
+      if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') response = drinks;
+      if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') response = categoryMeals;
+      if (url === `https://www.themealdb.com/api/json/v1/1/search.php?s=${QUERY}`) response = { meals: null };
+      return Promise.resolve({
+        json: () => Promise.resolve(response),
+      });
+    });
     window.alert = jest.fn();
     renderWithRouter(<App />, '/meals');
     const searchButton = screen.getByTestId(SEARCH_TOP_BTN);
@@ -115,7 +126,6 @@ describe('Testando componente SearchBar', () => {
     userEvent.click(searchInput);
     userEvent.type(searchInput, QUERY);
     userEvent.click(nameRadioButton);
-    expect(nameRadioButton).toBeChecked();
     userEvent.click(searchTypeButton);
     expect(nameRadioButton).toBeChecked();
     await waitFor(() => expect(window.alert).toHaveBeenCalledWith(
