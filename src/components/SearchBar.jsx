@@ -16,11 +16,11 @@ function SearchBar({ inputSearch }) {
   };
 
   const returnedData = (data) => {
+    console.log(data);
     const currentPage = history.location.pathname;
     const pageTitle = currentPage.replace('/', '');
-    if (data[pageTitle] === null) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      return true;
+    if (data.meals === null || data.drinks === null || !data) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     if (data[pageTitle].length === 1) {
       if (currentPage === '/meals') {

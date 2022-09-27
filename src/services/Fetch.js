@@ -54,14 +54,20 @@ export const searchApi = async (search, route) => {
   const DRINKS_URL = `https://www.thecocktaildb.com/api/json/v1/1/${search}`;
 
   if (route === '/meals') {
-    const response = await fetch(MEALS_URL);
-    const data = await response.json();
-
-    return data;
+    try {
+      const response = await fetch(MEALS_URL);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return false;
+    }
   }
 
-  const response = await fetch(DRINKS_URL);
-  const data = await response.json();
-
-  return data;
+  try {
+    const response = await fetch(DRINKS_URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return false;
+  }
 };
