@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import RecipeContext from '../context/RecipeContext';
 
 const RECOMENDATION_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const indexForSixItems = 6;
 
 function MealsDetailsRender() {
   const { recipeDetails } = useContext(RecipeContext);
@@ -86,34 +87,29 @@ function MealsDetailsRender() {
       <div className="container-fluid">
         <div className="row flex-row flex-nowrap overflow-auto">
           {recomendedDrinks.length > 0 && recomendedDrinks
-            .map(({ strDrinkThumb, strDrink }, i) => {
-              const indexForSixItems = 6;
-              if (i < indexForSixItems) {
-                return (
-                  <div
-                    className="card"
-                    style={ { width: '11rem' } }
-                    data-testid={ `${i}-recommendation-card` }
-                    key={ strDrink }
+            .slice(0, indexForSixItems)
+            .map(({ strDrinkThumb, strDrink }, i) => (
+              <div
+                className="card"
+                style={ { width: '11rem' } }
+                data-testid={ `${i}-recommendation-card` }
+                key={ strDrink }
+              >
+                <img
+                  src={ `${strDrinkThumb}` }
+                  alt={ i }
+                  className="card-img-top"
+                />
+                <div className="card-body">
+                  <h5
+                    className="card-title"
+                    data-testid={ `${i}-recommendation-title` }
                   >
-                    <img
-                      src={ `${strDrinkThumb}` }
-                      alt={ i }
-                      className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h5
-                        className="card-title"
-                        data-testid={ `${i}-recommendation-title` }
-                      >
-                        {strDrink}
-                      </h5>
-                    </div>
-                  </div>
-                );
-              }
-              return undefined;
-            })}
+                    {strDrink}
+                  </h5>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
       <button
