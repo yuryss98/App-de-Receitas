@@ -16,7 +16,6 @@ function RecipesCard({ index, name, image, path, id }) {
       />
       <p
         data-testid={ `${index}-card-name` }
-        className="recipe-title"
       >
         {name}
       </p>
