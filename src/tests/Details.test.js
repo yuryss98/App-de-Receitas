@@ -33,8 +33,8 @@ describe('Testing the pages meal details and drink details', () => {
     expect(title.innerHTML).toBe('<b>Spicy Arrabiata Penne</b>');
     expect(img.src).toBe('https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg');
     expect(category.innerHTML).toBe('<b>Vegetarian</b>');
-    expect(ingredient0.innerHTML).toBe('1 pound of penne rigate');
-    expect(ingrediente7.innerHTML).toBe('spinkling of Parmigiano-Reggiano');
+    expect(ingredient0.innerHTML).toBe('penne rigate     1 pound');
+    expect(ingrediente7.innerHTML).toBe('Parmigiano-Reggiano     spinkling');
     expect(instructions).toBeInTheDocument();
     expect(video).toBeInTheDocument();
     expect(recomendation0).toBeInTheDocument();
@@ -66,8 +66,8 @@ describe('Testing the pages meal details and drink details', () => {
     expect(title.innerHTML).toBe('<b>GG</b>');
     expect(img.src).toBe('https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg');
     expect(category.innerHTML).toBe('<b>Optional alcohol</b>');
-    expect(ingredient0.innerHTML).toBe('Ice of Galliano');
-    expect(ingrediente1.innerHTML).toBe('2 1/2 shots  of Ginger ale');
+    expect(ingredient0.innerHTML).toBe('Galliano Ice');
+    expect(ingrediente1.innerHTML).toBe('Ginger ale 2 1/2 shots ');
     expect(instructions).toBeInTheDocument();
     expect(recomendation0).toBeInTheDocument();
     expect(recomendation5).toBeInTheDocument();

@@ -1,5 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 const RECOMENDATION_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const indexForSixItems = 6;
@@ -10,6 +14,9 @@ function MealsDetailsRender() {
   const data = meals[0];
   const [ingredients, setIngredients] = useState([]);
   const [recomendedDrinks, setRecomendedDrinks] = useState({});
+  const location = useLocation();
+  const history = useHistory();
+  const [showIfCopy, setShowIfCopy] = useState(false);
 
   useEffect(() => {
     const listingIngredients = () => {
@@ -37,6 +44,22 @@ function MealsDetailsRender() {
   }, []);
 
   const halfLengthOfIngredients = Math.ceil(ingredients.length / 2);
+
+  const itemID = location.pathname.replace(/\/meals\//, '');
+  const inProgress = JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || { meals: { 0: [] } };
+  const inProgressMeals = inProgress.meals
+  && Object.keys(inProgress.meals).includes(itemID);
+
+  const startRecipeHandler = () => {
+    history.push(`/meals/${itemID}/in-progress`);
+  };
+
+  const shareHandler = () => {
+    const link = window.location.href;
+    copy(link);
+    setShowIfCopy(true);
+  };
 
   return (
     <section>
@@ -84,9 +107,28 @@ function MealsDetailsRender() {
           data-testid="video"
         />
       </div>
+      <div>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Favorite Recipe
+        </button>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ shareHandler }
+        >
+          <img src={ shareIcon } alt="share" />
+          {' '}
+          Share Recipe
+        </button>
+        {showIfCopy && <p>Link copied!</p>}
+      </div>
       <div className="container-fluid">
         <div className="row flex-row flex-nowrap overflow-auto">
-          {recomendedDrinks.length > 0 && recomendedDrinks.slice(0, indexForSixItems)
+          {recomendedDrinks.length > 0 && recomendedDrinks
+            .slice(0, indexForSixItems)
             .map(({ strDrinkThumb, strDrink }, i) => (
               <div
                 className="card"
@@ -115,8 +157,9 @@ function MealsDetailsRender() {
         type="button"
         data-testid="start-recipe-btn"
         className="fixed-bottom"
+        onClick={ startRecipeHandler }
       >
-        Start recipe
+        {inProgressMeals ? 'Continue Recipe' : 'Start Recipe'}
       </button>
     </section>
   );
