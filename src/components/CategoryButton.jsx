@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CategoryButton({ strCategory, clickMeals }) {
+function CategoryButton({ strCategory, categoryApi }) {
   return (
     <button
       type="button"
       data-testid={ `${strCategory}-category-filter` }
       id={ strCategory }
-      onClick={ ({ target: { id } }) => clickMeals(id) }
+      onClick={ ({ target: { id } }) => categoryApi(id) }
     >
       {strCategory}
     </button>
@@ -16,7 +16,7 @@ function CategoryButton({ strCategory, clickMeals }) {
 
 CategoryButton.propTypes = {
   strCategory: PropTypes.string.isRequired,
-  clickMeals: PropTypes.string.isRequired,
+  categoryApi: PropTypes.func.isRequired,
 };
 
 export default CategoryButton;
