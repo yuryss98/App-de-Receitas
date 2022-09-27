@@ -19,7 +19,7 @@ function RecipeCard({ recipe, title, img, index }) {
 }
 
 RecipeCard.propTypes = {
-  recipe: PropTypes.arrayOf().isRequired,
+  recipe: PropTypes.shape({}).isRequired,
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
