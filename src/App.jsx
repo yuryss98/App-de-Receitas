@@ -9,7 +9,7 @@ import RecipeDetails from './pages/RecipeDetails';
 import Header from './components/Header';
 import Profile from './pages/Profile';
 import Recipes from './pages/Recipes';
-import InProgress from './pages/InProgress';
+import RecipeInProgress from './components/RecipeInProgress';
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
         <Route exact path="/drinks" component={ Recipes } />
         <Route exact path="/meals/:id" component={ RecipeDetails } />
         <Route exact path="/drinks/:id" component={ RecipeDetails } />
-        <Route exact path="/meals/:id/in-progress" component={ InProgress } />
-        <Route exact path="/drinks/:id/in-progress" component={ InProgress } />
+        <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ Login } />
         <Route exact path="/favorite-recipes" component={ Login } />
