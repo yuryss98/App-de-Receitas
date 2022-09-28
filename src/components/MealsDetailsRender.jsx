@@ -61,6 +61,32 @@ function MealsDetailsRender() {
     setShowIfCopy(true);
   };
 
+  const favoriteHandler = () => {
+    const {
+      idMeal,
+      strMeal,
+      strMealThumb,
+      strCategory,
+      strArea,
+    } = data;
+    const type = 'meal';
+
+    const previousStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const itemInfo = {
+      id: idMeal,
+      type,
+      name: strMeal,
+      nationality: strArea,
+      alcoholicOrNot: '',
+      category: strCategory,
+      image: strMealThumb };
+    const nextStorage = previousStorage.concat(itemInfo);
+    const doesMealExistInLocalStorage = previousStorage
+      .some((item) => item.idMeal.includes(idMeal));
+    if (doesMealExistInLocalStorage) return;
+    localStorage.setItem('favoriteRecipes', JSON.stringify(nextStorage));
+  };
+
   return (
     <section>
       <p data-testid="recipe-title">
@@ -111,6 +137,7 @@ function MealsDetailsRender() {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ favoriteHandler }
         >
           Favorite Recipe
         </button>
