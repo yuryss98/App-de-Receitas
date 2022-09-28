@@ -19,7 +19,7 @@ function DoneRecipesFilters() {
 
       </button>
       <button
-        name="meals"
+        name="meal"
         type="button"
         data-testid="filter-by-meal-btn"
         onClick={ handleFilter }
@@ -28,7 +28,7 @@ function DoneRecipesFilters() {
 
       </button>
       <button
-        name="drinks"
+        name="drink"
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ handleFilter }
