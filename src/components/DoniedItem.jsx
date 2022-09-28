@@ -1,22 +1,25 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function DoniedItem(props) {
   const { item, index } = props;
   const [linkisCopied, setLinkisCopied] = useState(false);
   return (
     <div key={ item.name }>
-      <img
-        alt={ `${item.name} img` }
-        src={ item.image }
-        data-testid={ `${index}-horizontal-image` }
-      />
-      <p data-testid={ `${index}-horizontal-top-text` }>
-        {item.category + ((item.type === 'drink')
-          ? item.alcoholicOrNot
-          : (`${item.nationality} - ${item.category}`))}
+      <Link to={ `${item.type}s/${item.id}` }>
+        <img
+          alt={ `${item.name} img` }
+          src={ item.image }
+          data-testid={ `${index}-horizontal-image` }
+        />
+        <p data-testid={ `${index}-horizontal-top-text` }>
+          {item.category + ((item.type === 'drink')
+            ? item.alcoholicOrNot
+            : (`${item.nationality} - ${item.category}`))}
 
-      </p>
+        </p>
+      </Link>
       <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
       <p atributo data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
 
