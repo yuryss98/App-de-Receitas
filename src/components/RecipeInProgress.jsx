@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import FinishRecipe from './FinishRecipe';
 
 function RecipeInProgress() {
   const [keys, setKeys] = useState('');
@@ -93,19 +94,13 @@ function RecipeInProgress() {
         {ingredients && ingredients
           .slice(0, halfLengthOfIngredients)
           .map((item, i) => (
-            <label
-              data-testid={ ` ${i}-ingredient-step` }
+            <FinishRecipe
               key={ item + i }
-              htmlFor={ item }
-            >
-              {`${item} ${ingredients[halfLengthOfIngredients + i]}`}
-
-              <input
-                type="checkbox"
-                name=""
-                id={ item }
-              />
-            </label>
+              item={ item }
+              i={ i }
+              ingredients={ ingredients }
+              halfLengthOfIngredients={ halfLengthOfIngredients }
+            />
           ))}
       </main>
 
