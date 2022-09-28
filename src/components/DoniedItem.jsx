@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/DoniedItem.css';
 
 function DoniedItem(props) {
   const { item, index } = props;
@@ -9,6 +10,7 @@ function DoniedItem(props) {
     <div key={ item.name }>
       <Link to={ `${item.type}s/${item.id}` }>
         <img
+          className="imgItem"
           alt={ `${item.name} img` }
           src={ item.image }
           data-testid={ `${index}-horizontal-image` }
@@ -19,8 +21,8 @@ function DoniedItem(props) {
             : (`${item.nationality} - ${item.category}`))}
 
         </p>
+        <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
       <p atributo data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
 
       <button
