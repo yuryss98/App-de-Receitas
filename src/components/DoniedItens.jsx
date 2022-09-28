@@ -6,8 +6,10 @@ import RecipeContext from '../context/RecipeContext';
 function DoniedItens() {
   const items = getDoneRecipes();
   const { DoneRecipesFilter } = useContext(RecipeContext);
-  const showedItems = items
-    .filter((item) => (DoneRecipesFilter === 'all') || (DoneRecipesFilter === item.type));
+  const showedItems = (items)
+    ? items.filter((item) => (DoneRecipesFilter === 'all')
+    || (DoneRecipesFilter === item.type))
+    : [];
   return (
     <>
       {showedItems.map((item, index) => (
