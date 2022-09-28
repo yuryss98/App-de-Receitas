@@ -46,4 +46,19 @@ function DoniedItem(props) {
   );
 }
 
+DoniedItem.propTypes = {
+  item: PropTypes.shape({
+    tags: PropTypes.shape({ map: PropTypes.func.isRequired }).isRequired,
+    name: PropTypes.string.isRequired,
+    alcoholicOrNot: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    nationality: PropTypes.string.isRequired,
+    doneDate: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
 export default DoniedItem;
