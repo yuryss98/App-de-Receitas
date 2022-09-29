@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 import shareIcon from '../images/shareIcon.svg';
+import useLocalStorage from '../hooks/useLocalStorage';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -17,6 +20,7 @@ function DrinksDetailsRender() {
   const location = useLocation();
   const history = useHistory();
   const [showIfCopy, setShowIfCopy] = useState(false);
+  const [lStorage, setLStorage] = useLocalStorage('favoriteRecipes');
 
   useEffect(() => {
     const listingIngredientsDrink = () => {
@@ -61,6 +65,40 @@ function DrinksDetailsRender() {
     setShowIfCopy(true);
   };
 
+  const {
+    idDrink,
+    strDrink,
+    strDrinkThumb,
+    strCategory,
+    strAlcoholic,
+  } = data;
+
+  const previousStorage = (lStorage && JSON.parse(lStorage)) || [];
+  const doesDrinkExistInLocalStorage = previousStorage
+    .some((item) => item.id === idDrink);
+
+  const favoriteHandler = () => {
+    const type = 'drink';
+    const itemInfo = {
+      id: idDrink,
+      type,
+      name: strDrink,
+      nationality: '',
+      alcoholicOrNot: strAlcoholic,
+      category: strCategory,
+      image: strDrinkThumb };
+    const nextStorage = previousStorage.concat(itemInfo);
+    if (doesDrinkExistInLocalStorage) {
+      const b = previousStorage.filter((item) => item.id !== idDrink);
+      const c = JSON.stringify(b);
+      localStorage
+        .removeItem('favoriteRecipes');
+      setLStorage(c);
+      return;
+    }
+    setLStorage(JSON.stringify(nextStorage));
+  };
+
   return (
     <section>
       <p data-testid="recipe-title">
@@ -102,7 +140,13 @@ function DrinksDetailsRender() {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ favoriteHandler }
+          src={ doesDrinkExistInLocalStorage ? blackHeartIcon : whiteHeartIcon }
         >
+          <img
+            src={ doesDrinkExistInLocalStorage ? blackHeartIcon : whiteHeartIcon }
+            alt="btnImg"
+          />
           Favorite Recipe
         </button>
         <button
