@@ -73,6 +73,7 @@ function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
         type="checkbox"
         name={ item }
         id={ item }
+        // essa propriedade checked aqui não esta alterando conforme o estado altera
         checked={ checkedBox }
         onChange={ finishIngredient }
       />
