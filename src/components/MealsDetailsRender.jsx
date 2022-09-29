@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 import shareIcon from '../images/shareIcon.svg';
+import useLocalStorage from '../hooks/useLocalStorage';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -17,6 +20,8 @@ function MealsDetailsRender() {
   const location = useLocation();
   const history = useHistory();
   const [showIfCopy, setShowIfCopy] = useState(false);
+  const [reRender, setReRender] = useState(false);
+  const [lStorage, setLStorage] = useLocalStorage('favoriteRecipes');
 
   useEffect(() => {
     const listingIngredients = () => {
@@ -61,17 +66,25 @@ function MealsDetailsRender() {
     setShowIfCopy(true);
   };
 
+  const {
+    idMeal,
+    strMeal,
+    strMealThumb,
+    strCategory,
+    strArea,
+  } = data;
+
+  const previousStorage = (lStorage && JSON.parse(lStorage)) || [];
+  const doesMealExistInLocalStorage = previousStorage
+    .some((item) => item.id === idMeal);
+
+  useEffect(() => {
+    if (doesMealExistInLocalStorage) setReRender(true);
+  }, [reRender, doesMealExistInLocalStorage]);
+
   const favoriteHandler = () => {
-    const {
-      idMeal,
-      strMeal,
-      strMealThumb,
-      strCategory,
-      strArea,
-    } = data;
     const type = 'meal';
 
-    const previousStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const itemInfo = {
       id: idMeal,
       type,
@@ -81,10 +94,16 @@ function MealsDetailsRender() {
       category: strCategory,
       image: strMealThumb };
     const nextStorage = previousStorage.concat(itemInfo);
-    const doesMealExistInLocalStorage = previousStorage
-      .some((item) => item.idMeal.includes(idMeal));
-    if (doesMealExistInLocalStorage) return;
-    localStorage.setItem('favoriteRecipes', JSON.stringify(nextStorage));
+
+    if (doesMealExistInLocalStorage) {
+      const b = previousStorage.filter((item) => item.id !== idMeal);
+      const c = JSON.stringify(b);
+      localStorage
+        .removeItem('favoriteRecipes');
+      setLStorage(c);
+      return;
+    }
+    setLStorage(JSON.stringify(nextStorage));
   };
 
   return (
@@ -138,7 +157,15 @@ function MealsDetailsRender() {
           type="button"
           data-testid="favorite-btn"
           onClick={ favoriteHandler }
+          src={ doesMealExistInLocalStorage
+            ? blackHeartIcon : whiteHeartIcon }
         >
+          <img
+            src={ doesMealExistInLocalStorage
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="fav-icon"
+          />
+          {}
           Favorite Recipe
         </button>
         <button
