@@ -4,7 +4,7 @@ import '../styles/RecipeInProgress.css';
 import { useHistory, useParams } from 'react-router-dom';
 
 function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
-  const [checkedBox, setCheckedBox] = useState(false);
+  const [checkedBox, setCheckedBox] = useState(true);
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
 
@@ -68,7 +68,6 @@ function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
       className={ checkedBox && 'Finish' }
     >
       {`${item} ${ingredients[halfLengthOfIngredients + i]}`}
-      {console.log(checkedBox)}
       <input
         type="checkbox"
         name={ item }
