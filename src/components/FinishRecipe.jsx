@@ -15,7 +15,8 @@ function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
     const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
 
     if (Object.keys(getLocalStorage).includes(drinksOrMeals[1])) {
-      const isCheckedIngredient = getLocalStorage[drinksOrMeals[1]][id].some(
+      const isCheckedIngredient = getLocalStorage[drinksOrMeals[1]][id]
+      && getLocalStorage[drinksOrMeals[1]][id].some(
         (el) => el === `${item} ${ingredients[halfLengthOfIngredients + i]}`,
       );
       if (isCheckedIngredient) {
@@ -83,7 +84,7 @@ function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
 FinishRecipe.propTypes = {
   item: PropTypes.string.isRequired,
   i: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf().isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   halfLengthOfIngredients: PropTypes.number.isRequired,
 };
 

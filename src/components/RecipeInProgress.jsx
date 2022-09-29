@@ -3,12 +3,17 @@ import { useHistory, useParams } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import FinishRecipe from './FinishRecipe';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function RecipeInProgress() {
   const [keys, setKeys] = useState('');
   const [recipe, setRecipe] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [lStorage, setLStorage] = useLocalStorage('favoriteRecipes');
+  const [showIfCopy, setShowIfCopy] = useState(false);
 
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
@@ -84,27 +89,26 @@ function RecipeInProgress() {
     }
   }, [recipe]);
 
-  const halfLengthOfIngredients = Math.ceil(ingredients.length / 2);
   const drinksOrMeals = pathname.split('/');
-  const key = drinksOrMeals[1].charAt(0).toUpperCase() + drinksOrMeals[1].slice(1);
+  const key = recipe
+  && drinksOrMeals[1].charAt(0).toUpperCase() + drinksOrMeals[1].slice(1);
   const newStrin = key.split(key[key.length - 1]);
+  const test = drinksOrMeals[1];
+  const halfLengthOfIngredients = Math.ceil(ingredients.length / 2);
   const previousStorage = (lStorage && JSON.parse(lStorage)) || [];
-  const doesRecipeExistInLocalStorage = previousStorage
-    .some((item) => item.id === `id${key}`);
-
-  const test = drinksOrMeals[1][0];
-
-  // const {
-  //   strCategory,
-  // } = recipe[drinksOrMeals[1]];
+  const doesRecipeExistInLocalStorage = recipe
+  && previousStorage
+    .some((item) => item.id === recipe[test][0][`id${newStrin[0]}`]);
 
   const favoriteHandler = () => {
-    const nationality = drinksOrMeals[1] === 'meals' ? recipe.meals.strArea : '';
+    const nationality = drinksOrMeals[1] === 'meals' ? recipe.meals[0].strArea : '';
     const alcoholicOrNot = drinksOrMeals[1] === 'drinks'
-      ? recipe.drinks.strAlcoholic : '';
+      ? recipe.drinks[0].strAlcoholic : '';
+
+    const { strCategory } = recipe[test][0];
     const itemInfo = {
       id: recipe[test][0][`id${newStrin[0]}`],
-      type: drinksOrMeals[1],
+      type: test.replace(test[test.length - 1], ''),
       name: recipe[test][0][`str${newStrin[0]}`],
       nationality,
       alcoholicOrNot,
@@ -114,7 +118,7 @@ function RecipeInProgress() {
     const nextStorage = previousStorage.concat(itemInfo);
 
     if (doesRecipeExistInLocalStorage) {
-      const b = previousStorage.filter((item) => item.id !== `id${newStrin[0]}`);
+      const b = previousStorage.filter((item) => item.id !== itemInfo.id);
       const c = JSON.stringify(b);
       localStorage
         .removeItem('favoriteRecipes');
@@ -122,6 +126,13 @@ function RecipeInProgress() {
       return;
     }
     setLStorage(JSON.stringify(nextStorage));
+  };
+
+  const shareHandler = () => {
+    const link = window.location.href;
+    const newLink = link.replace('/in-progress', '');
+    copy(newLink);
+    setShowIfCopy(true);
   };
 
   return (
@@ -181,17 +192,24 @@ function RecipeInProgress() {
           type="button"
           data-testid="favorite-btn"
           onClick={ favoriteHandler }
+          src={ doesRecipeExistInLocalStorage ? blackHeartIcon : whiteHeartIcon }
         >
+          <img
+            src={ doesRecipeExistInLocalStorage ? blackHeartIcon : whiteHeartIcon }
+            alt="btnImg"
+          />
           Favorite Recipe
         </button>
 
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ shareHandler }
         >
           <img src={ shareIcon } alt="share" />
           Share Recipe
         </button>
+        {showIfCopy && <p>Link copied!</p>}
 
         <button
           type="button"
