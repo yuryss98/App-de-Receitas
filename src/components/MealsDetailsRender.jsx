@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import RecipeContext from '../context/RecipeContext';
 import shareIcon from '../images/shareIcon.svg';
+import useLocalStorage from '../hooks/useLocalStorage';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -17,6 +20,8 @@ function MealsDetailsRender() {
   const location = useLocation();
   const history = useHistory();
   const [showIfCopy, setShowIfCopy] = useState(false);
+  const [reRender, setReRender] = useState(false);
+  const [lStorage, setLStorage] = useLocalStorage('favoriteRecipes');
 
   useEffect(() => {
     const listingIngredients = () => {
@@ -59,6 +64,46 @@ function MealsDetailsRender() {
     const link = window.location.href;
     copy(link);
     setShowIfCopy(true);
+  };
+
+  const {
+    idMeal,
+    strMeal,
+    strMealThumb,
+    strCategory,
+    strArea,
+  } = data;
+
+  const previousStorage = (lStorage && JSON.parse(lStorage)) || [];
+  const doesMealExistInLocalStorage = previousStorage
+    .some((item) => item.id === idMeal);
+
+  useEffect(() => {
+    if (doesMealExistInLocalStorage) setReRender(true);
+  }, [reRender, doesMealExistInLocalStorage]);
+
+  const favoriteHandler = () => {
+    const type = 'meal';
+
+    const itemInfo = {
+      id: idMeal,
+      type,
+      name: strMeal,
+      nationality: strArea,
+      alcoholicOrNot: '',
+      category: strCategory,
+      image: strMealThumb };
+    const nextStorage = previousStorage.concat(itemInfo);
+
+    if (doesMealExistInLocalStorage) {
+      const b = previousStorage.filter((item) => item.id !== idMeal);
+      const c = JSON.stringify(b);
+      localStorage
+        .removeItem('favoriteRecipes');
+      setLStorage(c);
+      return;
+    }
+    setLStorage(JSON.stringify(nextStorage));
   };
 
   return (
@@ -111,7 +156,16 @@ function MealsDetailsRender() {
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ favoriteHandler }
+          src={ doesMealExistInLocalStorage
+            ? blackHeartIcon : whiteHeartIcon }
         >
+          <img
+            src={ doesMealExistInLocalStorage
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="fav-icon"
+          />
+          {}
           Favorite Recipe
         </button>
         <button
