@@ -35,6 +35,36 @@ function RecipeInProgress() {
   }, [pathname, id]);
 
   useEffect(() => {
+    if (keys) {
+      const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+        meals: {},
+        drinks: {},
+      };
+
+      if (getLocalStorage[keys][id]) {
+        const newObj = {
+          ...getLocalStorage,
+          [keys]: {
+            ...getLocalStorage[keys],
+            [id]: [...getLocalStorage[keys][id]],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+      } else {
+        const newObj = {
+          ...getLocalStorage,
+          [keys]: {
+            ...getLocalStorage[keys],
+            [id]: [],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keys]);
+
+  useEffect(() => {
     if (recipe) {
       const keysMealsOrDrinks = Object.keys(recipe);
       setKeys(keysMealsOrDrinks[0]);
@@ -91,17 +121,19 @@ function RecipeInProgress() {
           })
         }
 
-        {ingredients && ingredients
-          .slice(0, halfLengthOfIngredients)
-          .map((item, i) => (
-            <FinishRecipe
-              key={ item + i }
-              item={ item }
-              i={ i }
-              ingredients={ ingredients }
-              halfLengthOfIngredients={ halfLengthOfIngredients }
-            />
-          ))}
+        <div>
+          {ingredients && ingredients
+            .slice(0, halfLengthOfIngredients)
+            .map((item, i) => (
+              <FinishRecipe
+                key={ item + i }
+                item={ item }
+                i={ i }
+                ingredients={ ingredients }
+                halfLengthOfIngredients={ halfLengthOfIngredients }
+              />
+            ))}
+        </div>
       </main>
 
       <div>

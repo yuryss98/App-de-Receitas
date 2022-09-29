@@ -33,8 +33,6 @@ function MealsDetailsRender() {
     listingIngredients();
   }, [data]);
 
-  console.log(ingredients);
-
   useEffect(() => {
     const fetchingRecomendedDrinks = async () => {
       const info = await fetch(`${RECOMENDATION_URL}`)
