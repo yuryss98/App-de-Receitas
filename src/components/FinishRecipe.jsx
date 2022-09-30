@@ -109,6 +109,9 @@ FinishRecipe.propTypes = {
   i: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   halfLengthOfIngredients: PropTypes.number.isRequired,
+  setCheckIngredient: PropTypes.func.isRequired,
+  checkIngredient: PropTypes.number.isRequired,
+  setEnabledFinish: PropTypes.func.isRequired,
 };
 
 export default FinishRecipe;

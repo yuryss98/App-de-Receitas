@@ -18,7 +18,7 @@ function RecipeInProgress() {
   const [checkIngredient, setCheckIngredient] = useState(0);
 
   const { id } = useParams();
-  const { location: { pathname } } = useHistory();
+  const { location: { pathname }, push } = useHistory();
 
   useEffect(() => {
     const MEAL_URL_TO_FETCH = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -230,6 +230,7 @@ function RecipeInProgress() {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ enabledFinish }
+          onClick={ () => push('/done-recipes') }
         >
           Finish Recipe
         </button>
