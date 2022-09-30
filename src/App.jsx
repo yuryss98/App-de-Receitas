@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Profile from './pages/Profile';
 import Recipes from './pages/Recipes';
 import InProgress from './pages/InProgress';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route exact path="/drinks/:id/in-progress" component={ InProgress } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ Login } />
-        <Route exact path="/favorite-recipes" component={ Login } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     </RecipeProvider>
   );
