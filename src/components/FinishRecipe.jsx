@@ -22,7 +22,7 @@ function FinishRecipe(props) {
 
   useEffect(() => {
     setCheckedBox(false);
-    const drinksOrMeals = pathname.split('/'); // posição [1] tem as chaves drinks ou meals
+    const drinksOrMeals = pathname.split('/');
     const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
 
     if (Object.keys(getLocalStorage).includes(drinksOrMeals[1])) {
@@ -41,7 +41,7 @@ function FinishRecipe(props) {
   }, []);
 
   const finishIngredient = () => {
-    const drinksOrMeals = pathname.split('/'); // posição [1] tem as chaves drinks ou meals
+    const drinksOrMeals = pathname.split('/');
     const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
     if (checkedBox) {
