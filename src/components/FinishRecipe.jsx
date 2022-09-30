@@ -4,7 +4,7 @@ import '../styles/RecipeInProgress.css';
 import { useHistory, useParams } from 'react-router-dom';
 
 function FinishRecipe(props) {
-  const [checkedBox, setCheckedBox] = useState(false);
+  const [checkedBox, setCheckedBox] = useState(true);
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
 
@@ -21,6 +21,7 @@ function FinishRecipe(props) {
   useEffect(() => {}, [checkedBox]);
 
   useEffect(() => {
+    setCheckedBox(false);
     const drinksOrMeals = pathname.split('/'); // posição [1] tem as chaves drinks ou meals
     const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
 
