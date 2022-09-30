@@ -6,6 +6,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import useLocalStorage from '../hooks/useLocalStorage';
 import isInProgress from '../helpers/recipe_details_page_helpers/isInProgress';
+import doneRecipe from '../helpers/recipe_details_page_helpers/doneRecipe';
 
 const copy = require('clipboard-copy');
 
@@ -23,7 +24,6 @@ function RecipeDetails() {
   const [showIfCopy, setShowIfCopy] = useState(false);
   const [recomended, setRecomended] = useState({});
   const history = useHistory();
-  const [inProgress, setInProgress] = useState(false);
 
   useEffect(() => {
     const fetching = async () => {
@@ -32,17 +32,17 @@ function RecipeDetails() {
           const data = await fetch(`${MEAL_URL_TO_FETCH}${id}`)
             .then((item) => item.json());
           setRecipeDetails(fetchTreatment(data));
-          const recData = await fetch(`${DRINK_RECOMENDATION_URL}`)
+          const recomendedData = await fetch(`${DRINK_RECOMENDATION_URL}`)
             .then((result) => result.json());
-          setRecomended(recData.drinks);
+          setRecomended(recomendedData.drinks);
         }
         if (pathname === `/drinks/${id}`) {
           const data = await fetch(`${DRINK_URL_TO_FETCH}${id}`)
             .then((item) => item.json());
           setRecipeDetails(fetchTreatment(data));
-          const recData = await fetch(`${MEAL_RECOMENDATION_URL}`)
+          const recomendedData = await fetch(`${MEAL_RECOMENDATION_URL}`)
             .then((result) => result.json());
-          setRecomended(recData.meals);
+          setRecomended(recomendedData.meals);
         }
       } catch (e) {
         return e.message;
@@ -51,10 +51,6 @@ function RecipeDetails() {
     fetching();
   }, [id, pathname, setRecipeDetails]);
 
-  useEffect(() => {
-    setInProgress(isInProgress(id));
-  }, [inProgress, id]);
-
   const shareHandler = () => {
     const link = window.location.href;
     copy(link);
@@ -62,7 +58,7 @@ function RecipeDetails() {
   };
 
   const { name, thumb, type, strCategory, strAlcoholic, ingredients,
-    measures, strInstructions, strYoutube } = recipeDetails;
+    measures, strInstructions, strYoutube, strArea } = recipeDetails;
 
   const startRecipeHandler = () => {
     history.push(`/${type}s/${id}/in-progress`);
@@ -73,7 +69,17 @@ function RecipeDetails() {
     .some((item) => item.id === id);
 
   const favoriteHandler = () => {
-    const nextStorage = previousStorage.concat(recipeDetails);
+    const a = {
+      alcoholicOrNot: strAlcoholic || '',
+      category: strCategory,
+      id,
+      image: thumb,
+      name,
+      nationality: strArea || '',
+      type,
+    };
+
+    const nextStorage = previousStorage.concat(a);
 
     if (doesMealExistInLocalStorage) {
       const b = previousStorage.filter((item) => item.id !== id);
@@ -203,14 +209,18 @@ function RecipeDetails() {
             ))}
         </div>
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="fixed-bottom"
-        onClick={ startRecipeHandler }
-      >
-        {inProgress ? 'Continue Recipe' : 'Start Recipe'}
-      </button>
+      {
+        doneRecipe(id)
+      || (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="fixed-bottom"
+          onClick={ startRecipeHandler }
+        >
+          {isInProgress(id) ? 'Continue Recipe' : 'Start Recipe'}
+        </button>)
+      }
     </main>
   );
 }
