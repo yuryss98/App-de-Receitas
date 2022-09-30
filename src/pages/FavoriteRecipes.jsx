@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import FavoriteCard from '../components/FavoriteCard';
-import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const storageRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const [favorites, setFavorites] = useState();
-  const history = useHistory();
 
   useEffect(() => {
     const saveFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -70,8 +67,6 @@ function FavoriteRecipes() {
           handleClickRemove={ () => handleClickRemove(recipe.id) }
         />
       ))}
-      <br />
-      <Footer history={ history } />
     </div>
   );
 }
