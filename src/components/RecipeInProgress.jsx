@@ -175,7 +175,7 @@ function RecipeInProgress() {
                 <img
                   data-testid="recipe-photo"
                   src={ item.strMealThumb }
-                  alt=""
+                  alt={ item.strMeal }
                   style={ { width: '250px' } }
                 />
                 <p data-testid="instructions">{ item.strInstructions }</p>
