@@ -3,10 +3,20 @@ import PropTypes from 'prop-types';
 import '../styles/RecipeInProgress.css';
 import { useHistory, useParams } from 'react-router-dom';
 
-function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
-  const [checkedBox, setCheckedBox] = useState(true);
+function FinishRecipe(props) {
+  const [checkedBox, setCheckedBox] = useState(false);
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
+
+  const {
+    item,
+    i,
+    ingredients,
+    halfLengthOfIngredients,
+    setCheckIngredient,
+    checkIngredient,
+    setEnabledFinish,
+  } = props;
 
   useEffect(() => {}, [checkedBox]);
 
@@ -21,6 +31,9 @@ function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
       );
       if (isCheckedIngredient) {
         setCheckedBox(true);
+        if (ingredients.length) {
+          setCheckIngredient((prevState) => prevState + 1);
+        }
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,6 +73,16 @@ function FinishRecipe({ item, i, ingredients, halfLengthOfIngredients }) {
     }
 
     setCheckedBox(!checkedBox);
+    if (checkedBox) {
+      setCheckIngredient((prevState) => prevState - 1);
+    } else {
+      setCheckIngredient((prevState) => prevState + 1);
+    }
+    if (ingredients.length / 2 === checkIngredient) {
+      setEnabledFinish(false);
+    } else {
+      setEnabledFinish(true);
+    }
   };
 
   return (

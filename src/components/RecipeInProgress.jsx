@@ -14,6 +14,8 @@ function RecipeInProgress() {
   const [ingredients, setIngredients] = useState('');
   const [lStorage, setLStorage] = useLocalStorage('favoriteRecipes');
   const [showIfCopy, setShowIfCopy] = useState(false);
+  const [enabledFinish, setEnabledFinish] = useState(true);
+  const [checkIngredient, setCheckIngredient] = useState(0);
 
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
@@ -88,6 +90,16 @@ function RecipeInProgress() {
       setIngredients(filteredIngredients);
     }
   }, [recipe]);
+
+  useEffect(() => {
+    if (ingredients.length) {
+      if (ingredients.length / 2 === checkIngredient) {
+        setEnabledFinish(false);
+      } else {
+        setEnabledFinish(true);
+      }
+    }
+  }, [checkIngredient]); // eslint-disable-line
 
   const drinksOrMeals = pathname.split('/');
   const key = recipe
@@ -177,6 +189,9 @@ function RecipeInProgress() {
             .slice(0, halfLengthOfIngredients)
             .map((item, i) => (
               <FinishRecipe
+                setCheckIngredient={ setCheckIngredient }
+                checkIngredient={ checkIngredient }
+                setEnabledFinish={ setEnabledFinish }
                 key={ item + i }
                 item={ item }
                 i={ i }
@@ -214,6 +229,7 @@ function RecipeInProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          disabled={ enabledFinish }
         >
           Finish Recipe
         </button>
