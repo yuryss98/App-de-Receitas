@@ -32,7 +32,7 @@ function Recipes() {
       setResultCategory(allCategory);
     };
     getFetch();
-  }, [currentPage]); // eslint-disable-line
+  }, [currentPage, setRecipesData, setResultCategory]);
 
   const categoryApi = async (id) => {
     if (allCategories[currentPageKey]) {
