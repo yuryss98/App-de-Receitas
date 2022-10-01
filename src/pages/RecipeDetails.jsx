@@ -22,7 +22,7 @@ function RecipeDetails() {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [lStorage, setLStorage] = useLocalStorage('favoriteRecipes');
   const [showIfCopy, setShowIfCopy] = useState(false);
-  const [recomended, setRecomended] = useState({});
+  const [recomended, setRecomended] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
