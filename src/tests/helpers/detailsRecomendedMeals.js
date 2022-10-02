@@ -2,7 +2,7 @@ const detailsRecomendedDrinks = {
   meals: [
     {
       idMeal: '52977',
-      strMeal: 'Corba',
+      strMeal: 'CorbaSSS',
       strDrinkAlternate: null,
       strCategory: 'Side',
       strArea: 'Turkish',

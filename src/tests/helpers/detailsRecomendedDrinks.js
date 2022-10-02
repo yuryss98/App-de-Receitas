@@ -4,7 +4,7 @@ const detailsRecomendedDrinks = {
   drinks: [
     {
       idDrink: '15997',
-      strDrink: 'GG',
+      strDrink: 'GGSS',
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
@@ -269,7 +269,7 @@ const detailsRecomendedDrinks = {
     },
     {
       idDrink: '15288',
-      strDrink: '252',
+      strDrink: '252ABC',
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,

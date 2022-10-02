@@ -2,7 +2,7 @@ const detailsDrinkMock = {
   drinks: [
     {
       idDrink: '15997',
-      strDrink: 'GG',
+      strDrink: 'GGGG',
       strDrinkAlternate: null,
       strDrinkES: null,
       strDrinkDE: null,

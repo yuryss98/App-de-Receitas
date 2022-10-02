@@ -2,7 +2,7 @@ const detailsMealsMock = {
   meals: [
     {
       idMeal: '52771',
-      strMeal: 'Spicy Arrabiata Penne',
+      strMeal: 'Spicy Arrabiata PenneEEE',
       strDrinkAlternate: null,
       strCategory: 'Vegetarian',
       strArea: 'Italian',
