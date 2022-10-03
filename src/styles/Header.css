@@ -1,0 +1,49 @@
+header {
+  display: flex;
+  flex-direction: column;
+}
+
+.upHeaderPart {
+  align-items: center;
+  background: #6dabe9;
+  display: flex;
+  height: 52px;
+  justify-content: space-around;
+}
+
+.logoRecipesApp {
+  height: 31px;
+  width: 124px;
+}
+
+.buttonHeader {
+  all: unset;
+}
+
+.buttonsDisplay {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bottomPart {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.imgDrinkOrMeal {
+  height: 70px;
+  width: 150px;
+}
+
+.pageTitleHeader {
+  color: #41197f;
+  font-family: Epilogue;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 0.105em;
+  line-height: 21px;
+  text-align: center;
+  text-transform: uppercase;
+}

@@ -70,8 +70,7 @@ function RecipeInProgress() {
         localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keys]);
+  }, [keys, id]);
 
   useEffect(() => {
     if (recipe) {
@@ -99,7 +98,7 @@ function RecipeInProgress() {
         setEnabledFinish(true);
       }
     }
-  }, [checkIngredient]); // eslint-disable-line
+  }, [checkIngredient, ingredients]);
 
   const drinksOrMeals = pathname.split('/');
   const key = recipe

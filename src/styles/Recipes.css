@@ -1,0 +1,5 @@
+.recipe-card-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

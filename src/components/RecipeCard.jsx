@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import '../styles/RecipeCard.css';
+import 'bulma/css/bulma.min.css';
 
 function RecipesCard({ index, name, image, path, id }) {
   return (
     <Link
       data-testid={ `${index}-recipe-card` }
       to={ `${path}/${id}` }
+      className="card"
     >
       <img
         src={ image }
