@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/Login.css';
+import logoTomate from '../images/imagesCSS/tomate.png';
+import logoRecipes from '../images/imagesCSS/logo Recipes App.png';
+import 'bulma/css/bulma.min.css';
 
 function Login({ history }) {
   const [email, setEmail] = useState('');
@@ -40,39 +44,77 @@ function Login({ history }) {
   };
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <label htmlFor="email">
-        Email
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={ email }
-          onChange={ handleEmail }
-          data-testid="email-input"
-        />
-      </label>
+    <form onSubmit={ handleSubmit } className="container">
+      <div>
+        <div className="logo">
+          <img
+            src={ logoRecipes }
+            alt=""
+          />
+        </div>
 
-      <label htmlFor="password">
-        Senha
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={ password }
-          onChange={ handlePassword }
-          data-testid="password-input"
-        />
-      </label>
+        <div className="tomate">
+          <img
+            className="titleLogin"
+            src={ logoTomate }
+            alt=""
+          />
+        </div>
 
-      <button
-        type="submit"
-        disabled={ disabled }
-        data-testid="login-submit-btn"
-        onClick={ handleSubmit }
-      >
-        Entrar
-      </button>
+      </div>
+
+      <div className="ipuntsAndButton">
+        <h1 className="titleLogin">Login</h1>
+        <div className="field">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              className="input is-rounded"
+              type="email"
+              name="email"
+              id="email"
+              value={ email }
+              onChange={ handleEmail }
+              data-testid="email-input"
+              placeholder="Email"
+            />
+            <span className="icon is-small is-left">
+              <i className="fas fa-envelope" />
+            </span>
+            <span className="icon is-small is-right">
+              <i className="fas fa-check" />
+            </span>
+
+          </p>
+        </div>
+
+        <div className="field">
+          <p className="control has-icons-left">
+            <input
+              className="input is-rounded"
+              type="password"
+              name="password"
+              id="password"
+              value={ password }
+              onChange={ handlePassword }
+              data-testid="password-input"
+              placeholder="Password"
+            />
+            <span className="icon is-small is-left">
+              <i className="fas fa-lock" />
+            </span>
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          className="button is-warning is-rounded"
+          disabled={ disabled }
+          data-testid="login-submit-btn"
+          onClick={ handleSubmit }
+        >
+          ENTER
+        </button>
+      </div>
     </form>
   );
 }
