@@ -1,0 +1,20 @@
+:root {
+
+  --main-color: #41197f;
+
+  --secondary-color: #6dabe9;
+
+  --third-color: #53c262;
+}
+
+.done-recipes-screen {
+  align-items: center;
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.container-done-filters-recipes {
+  display: flex;
+  justify-content: space-around;
+}

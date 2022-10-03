@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import iconePerfil from '../images/iconePerfil.svg';
+import iconePesquiar from '../images/iconePesquiar.svg';
 import SearchBar from './SearchBar';
+import '../styles/Header.css';
+import iconeRecipesApp from '../images/iconeRecipesApp.svg';
+import logoRecipesApp from '../images/logoRecipesApp.svg';
+import iconeDrink from '../images/iconeDrink.svg';
+import iconePrato from '../images/iconePrato.svg';
 
 function Header() {
   const [search, setSearch] = useState(false);
@@ -44,44 +49,75 @@ function Header() {
     <div>
       {!(currentPage === '/' || currentPage.includes('/', 2)) && (
         <header>
-          <h1 data-testid="page-title">{processedTitle}</h1>
-          <button
-            type="button"
-            onClick={ handleProfileClick }
-          >
+          <div className="upHeaderPart">
+            <img src={ iconeRecipesApp } alt="Ícone Recipes App" />
             <img
-              src={ profileIcon }
-              alt="Icone de perfil"
-              data-testid="profile-top-btn"
+              src={ logoRecipesApp }
+              alt="Logo Recipes App"
+              className="logoRecipesApp"
             />
-          </button>
-          {
-            !checkForHeaderSearch
+            <div className="buttonsDisplay">
+              {
+                !checkForHeaderSearch
         && (
           <button
             type="button"
             onClick={ () => setSearch(!search) }
+            className="buttonHeader"
           >
             <img
-              src={ searchIcon }
+              src={ iconePesquiar }
               alt="Icone de pesquisa"
               data-testid="search-top-btn"
             />
           </button>
 
         )
-          }
-          {search && (
-            <section>
-              <SearchBar inputSearch={ inputSearch } />
-              <input
-                data-testid="search-input"
-                placeholder="digite aqui"
-                value={ inputSearch }
-                onChange={ ({ target }) => setInputSearch(target.value) }
-              />
-            </section>
-          )}
+              }
+              {search && (
+                <section>
+                  <SearchBar inputSearch={ inputSearch } />
+                  <input
+                    data-testid="search-input"
+                    placeholder="digite aqui"
+                    value={ inputSearch }
+                    onChange={ ({ target }) => setInputSearch(target.value) }
+                  />
+                </section>
+              )}
+              <button
+                type="button"
+                onClick={ handleProfileClick }
+                className="buttonHeader"
+              >
+                <img
+                  src={ iconePerfil }
+                  alt="Icone de perfil"
+                  data-testid="profile-top-btn"
+                />
+              </button>
+            </div>
+          </div>
+          <div className="bottomPart">
+            <div>
+              {
+                pageTitle === 'drinks'
+            && <img src={ iconeDrink } alt="Icone Prato" className="imgDrinkOrMeal" />
+              }
+              {
+                pageTitle === 'meals'
+              && <img src={ iconePrato } alt="Icone Drink" className="imgDrinkOrMeal" />
+              }
+            </div>
+            <h1
+              data-testid="page-title"
+              className="pageTitleHeader"
+            >
+              {processedTitle}
+
+            </h1>
+
+          </div>
         </header>
       )}
     </div>

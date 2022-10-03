@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/DoniedItem.css';
+import '../styles/DoneRecipess.css';
 
 function DoniedItem(props) {
   const { item, index } = props;

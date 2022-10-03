@@ -7,6 +7,7 @@ import { fetchAllRecipes,
 import RecipeCard from '../components/RecipeCard';
 import CategoryButton from '../components/CategoryButton';
 import Footer from '../components/Footer';
+import '../styles/Recipes.css';
 
 const maxResult = 12;
 const maxCategory = 5;
@@ -78,7 +79,7 @@ function Recipes() {
                 categoryApi={ categoryApi }
               />))}
         </section>
-        <section>
+        <section className="recipe-card-section">
           { recipesData[currentPageKey] && recipesData[currentPageKey]
             .slice(0, maxResult).map((recipe, index) => (
               <RecipeCard

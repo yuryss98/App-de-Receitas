@@ -37,8 +37,7 @@ function FinishRecipe(props) {
         }
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [halfLengthOfIngredients, i, id, ingredients, item, pathname, setCheckIngredient]);
 
   const finishIngredient = () => {
     const drinksOrMeals = pathname.split('/');
